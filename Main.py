@@ -23,11 +23,14 @@ resY = 590
 pygame.init()
 size = width, height = resX, resY
 screen = pygame.display.set_mode(size)
+black = 0, 0, 0
 
 # Capture webcam
 cap = cv2.VideoCapture(0)
 
 while(True):
+	# fix for unresponsive window
+	pygame.event.get()
 	# Capture frame
 	ret, frame = cap.read()
 	#flip mirror
@@ -36,19 +39,18 @@ while(True):
 	frame = cv2.resize(frame,(resX,resY),interpolation=cv2.INTER_LINEAR)
 	
 	# calculate position
-	# frame = func_CalcXY(frame, objLower, objUpper)    -- Uncomment for mask view --
+		# frame = func_CalcXY(frame, objLower, objUpper)    # -- Uncomment for mask view --
 	center = func_CalcXY(frame, objLower, objUpper)
+	center = pygame.mouse.get_pos() 						# -- Uncomment for mouse control --
+	# Reset screen
+	screen.fill(black)
 	
 	# Get screens
 	func_DEV(screen, center)
 	
-	# Show 
-	#cv2.imshow('Video', frame)
-	pygame.display.update()
+	# Draw circle
+	func_DrawCenter(screen, center)
 	
-	# Break with 'q'
-	if cv2.waitKey(1) & 0xFF == ord('q'):
-		break
-		
-cap.release()
-cv2.destroyAllWindows()	
+	# Show 
+		#cv2.imshow('Video', frame)							# -- Uncomment for mask view --
+	pygame.display.update()
