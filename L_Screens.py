@@ -29,9 +29,8 @@ def func_testImage(screen):
 
 	
 # Ready code
-def func_drawCenter(screen, center, dotColor):
+def func_drawCenter(screen, center, dotColor, radius, width):
 	x = center[0]
 	y = center[1]
-	pygame.draw.circle(screen,(dotColor),(x,y),10)
-
+	pygame.draw.circle(screen,(dotColor),(x,y), radius)
 

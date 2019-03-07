@@ -21,6 +21,6 @@ def func_CalcXY(frame, objLower, objUpper):
 		M = cv2.moments(c)
 		center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 		
-		#print(center)				# uncomment for console position
-	#return mask						# uncomment for mask view
+		# print(center)				# uncomment for console position
+	# return mask						# uncomment for mask view
 	return center					# uncomment for position return
