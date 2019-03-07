@@ -44,12 +44,18 @@ while(True):
 	center = pygame.mouse.get_pos() 						# -- Uncomment for mouse control --
 	# Reset screen
 	screen.fill(black)
+
+	# -- MAIN CODE -- #
+	x = center[0];
+	y = center[1];	
 	
-	# Get screens
-	func_DEV(screen, center)
+	if x > 75 and x < 125 and y > 50 and y < 300 :
+		func_testImage(screen)
+	
+	func_drawBox(screen)									# -- Uncomment for positioning views --	
 	
 	# Draw circle
-	func_DrawCenter(screen, center)
+	func_drawCenter(screen, center)
 	
 	# Show 
 		#cv2.imshow('Video', frame)							# -- Uncomment for mask view --
