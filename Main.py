@@ -19,12 +19,13 @@ objUpper = (150, 255, 255)
 resX = 590
 resY = 590
 count = 0
-StoryProgress = 0
+storyProgress = 0
 
 # Init pygame
 pygame.init()
 size = width, height = resX, resY
 screen = pygame.display.set_mode(size)
+# screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)		# -- Uncomment for full screen --
 black = 0, 0, 0
 dotColor = 128,128,128
 
@@ -53,20 +54,21 @@ while(True):
 	y = center[1];	
 	
 	# Start screen
-	if StoryProgress == 0 and x > 75 and x < 125 and y > 50 and y < 300 :
+	if storyProgress == 0 and x > 75 and x < 125 and y > 50 and y < 300 :
 		newColor = 128 + (count * 3)
 		dotColor = newColor,128,128
 		count += 1
 		if count == 40:
-			StoryProgress = 1
+			storyProgress = 1
 	else :
 		dotColor = 128,128,128
 		count = 0
+		
 	# main screen
-	if StoryProgress == 1 and x > 75 and x < 125 and y > 50 and y < 300 :
+	if storyProgress == 1 and x > 75 and x < 125 and y > 50 and y < 300 :
 		func_testImage(screen)
 	else :
-		StoryProgress = 0
+		storyProgress = 0
 		
 	
 	func_drawBox(screen)									# -- Uncomment for positioning views --	
