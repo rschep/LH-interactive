@@ -79,6 +79,8 @@ while(True):
 	# Show 
 		#cv2.imshow('Video', frame)							# -- Uncomment for mask view --
 	pygame.display.update()
+	
+	# Quit functionality
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
 			pygame.quit()
