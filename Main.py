@@ -79,3 +79,13 @@ while(True):
 	# Show 
 		#cv2.imshow('Video', frame)							# -- Uncomment for mask view --
 	pygame.display.update()
+	for event in pygame.event.get():
+		if event.type == pygame.QUIT:
+			pygame.quit()
+			sys.exit()
+			break
+		elif event.type == pygame.KEYDOWN:
+			if event.unicode == 'q':
+				pygame.quit
+				sys.exit()
+				break
