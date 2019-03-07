@@ -18,12 +18,15 @@ objUpper = (150, 255, 255)
 # screensize 
 resX = 590
 resY = 590
+count = 0
+StoryProgress = 0
 
 # Init pygame
 pygame.init()
 size = width, height = resX, resY
 screen = pygame.display.set_mode(size)
 black = 0, 0, 0
+dotColor = 128,128,128
 
 # Capture webcam
 cap = cv2.VideoCapture(0)
@@ -49,13 +52,27 @@ while(True):
 	x = center[0];
 	y = center[1];	
 	
-	if x > 75 and x < 125 and y > 50 and y < 300 :
+	# Start screen
+	if StoryProgress == 0 and x > 75 and x < 125 and y > 50 and y < 300 :
+		newColor = 128 + (count * 3)
+		dotColor = newColor,128,128
+		count += 1
+		if count == 40:
+			StoryProgress = 1
+	else :
+		dotColor = 128,128,128
+		count = 0
+	# main screen
+	if StoryProgress == 1 and x > 75 and x < 125 and y > 50 and y < 300 :
 		func_testImage(screen)
+	else :
+		StoryProgress = 0
+		
 	
 	func_drawBox(screen)									# -- Uncomment for positioning views --	
 	
 	# Draw circle
-	func_drawCenter(screen, center)
+	func_drawCenter(screen, center, dotColor)
 	
 	# Show 
 		#cv2.imshow('Video', frame)							# -- Uncomment for mask view --
