@@ -33,15 +33,21 @@ dotColor = 255,255,255
 selectionSize = 30
 selectionSize2 = 60
 selectionSize3 = 64
-
+skippedFrames = False
 # Capture webcam
 cap = cv2.VideoCapture(0)
-
+cap.set(cv2.CAP_PROP_FPS, 60)
 while(True):
 	# fix for unresponsive window
 	pygame.event.get()
 	# Capture frame
 	ret, frame = cap.read()
+	# SHPEED HACK | Disable original cap.read if this is enabled
+	# if skippedFrames == False:
+	# 	ret, frame = cap.read()
+	# 	skippedFrames = True
+	# else:
+	# 	skippedFrames == False
 	#flip mirror
 	frame = cv2.flip(frame,1)
 	# resize frame
