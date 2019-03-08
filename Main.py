@@ -14,11 +14,11 @@ from L_Screens import *
 # define the lower and upper boundaries of the object
 #	objLower = (100, 86, 6)
 #	objUpper = (150, 255, 255)
-objLower = (0, 86, 6)
+objLower = (100, 86, 120)
 objUpper = (150, 255, 255)
 # screensize 
-resX = 590
-resY = 590
+resX = 800
+resY = 800
 count = 0
 storyProgress = 0
 
@@ -27,7 +27,7 @@ pygame.init()
 clock = pygame.time.Clock()
 size = width, height = resX, resY
 screen = pygame.display.set_mode(size)
-# screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)		# -- Uncomment for full screen --
+#screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)		# -- Uncomment for full screen --
 black = 0, 0, 0
 dotColor = 255,255,255
 selectionSize = 30
@@ -43,20 +43,20 @@ while(True):
 	# Capture frame
 	ret, frame = cap.read()
 	# SHPEED HACK | Disable original cap.read if this is enabled
-	# if skippedFrames == False:
-	# 	ret, frame = cap.read()
-	# 	skippedFrames = True
-	# else:
-	# 	skippedFrames == False
+	#if skippedFrames == False:
+	#	ret, frame = cap.read()
+	#	skippedFrames = True
+	#else:
+	#	skippedFrames == False
 	#flip mirror
 	frame = cv2.flip(frame,1)
 	# resize frame
 	frame = cv2.resize(frame,(resX,resY),interpolation=cv2.INTER_LINEAR)
 	
 	# calculate position
-	# frame = func_CalcXY(frame, objLower, objUpper)    # -- Uncomment for mask view --
 	center = func_CalcXY(frame, objLower, objUpper)
-	center = pygame.mouse.get_pos() 						# -- Uncomment for mouse control --
+	#center = pygame.mouse.get_pos() 						# -- Uncomment for mouse control --
+	frame = func_Mask(frame, objLower, objUpper)    		# -- Uncomment for mask view --
 	# Reset screen
 	screen.fill(black)
 
@@ -104,7 +104,7 @@ while(True):
 	func_drawCenter(screen, center, dotColor, selectionSize, 15)
 	
 	# Show 
-	# cv2.imshow('Video', frame)							# -- Uncomment for mask view --
+	cv2.imshow('Video', frame)							# -- Uncomment for mask view --
 	pygame.display.update()
 	
 	# Quit functionality
