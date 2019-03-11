@@ -2,7 +2,6 @@
 import numpy as np
 import cv2
 import sys, pygame
-from pygame import gfxdraw
 
 # Import external library
 import L_CameraTrack
@@ -17,7 +16,6 @@ objUpper = (150, 255, 255)
 # screensize 
 resX = 200
 resY = 200
-count = 0
 storyProgress = 0
 
 # Capture webcam
@@ -32,7 +30,7 @@ screen = pygame.display.set_mode(size)
 #screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)		# -- Uncomment for full screen --
 black = 0, 0, 0
 dotColor = 255,255,255
-selectionSize = 30
+selectionSize1 = 30
 selectionSize2 = 60
 selectionSize3 = 64
 skippedFrames = False
@@ -62,33 +60,17 @@ while(True):
 	
 	# Start screen
 	if storyProgress == 0 and x > 75 and x < 125 and y > 50 and y < 300 :
-		# newColor = 128 + (count * 3)
-		# dotColor = newColor,128,128
-		# count += 1
-		# if count == 40:
-		# 	storyProgress = 1
-		dotColor = 255,255,255
-		selectionSize -=1
-		selectionSize2 -=2
-		selectionSize3 -=2
-		if selectionSize == 0:
+		func_PlaySound('assets/Audio/Zero-Sum_Drums.wav')
+		animationDone = func_clickAnimation(screen, x, y)
+		if animationDone == True:
 			storyProgress = 1 
-
-		if selectionSize2 >= 1:
-			pygame.gfxdraw.circle(screen, x, y, selectionSize2, (255,255,255))
-		else:
-			pygame.gfxdraw.circle(screen, x, y, 1, (255,255,255))
-		pygame.gfxdraw.circle(screen, x, y, selectionSize3, (255,255,255))
-
 	else :
 		dotColor = 200,200,200
-		count = 0
-		selectionSize = 30
-		selectionSize2 = 60
-		selectionSize3 = 64
+		func_resetAnimation()
 		
 	# main screen
 	if storyProgress == 1 and x > 75 and x < 125 and y > 50 and y < 300 :
+		func_StopSound()
 		func_testImage(screen)
 	else :
 		storyProgress = 0
@@ -97,10 +79,10 @@ while(True):
 	func_drawBox(screen)									# -- Uncomment for positioning views --	
 	
 	# Draw circle
-	func_drawCenter(screen, center, dotColor, selectionSize, 15)
+	func_drawCenter(screen, center, dotColor)
 	
 	# Show 
-	cv2.imshow('Video', frame)							# -- Uncomment for mask view --
+	# cv2.imshow('Video', frame)							# -- Uncomment for mask view --
 	pygame.display.update()
 	
 	# Quit functionality
