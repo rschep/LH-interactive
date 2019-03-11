@@ -1,9 +1,14 @@
 # import the necessary packages
 import sys, pygame
+import simpleaudio as sa
+
+#Variable
+audioPlay = False
+play_obj = sa.PlayObject(1)
 
 # Dev purposes
 def func_DEV(screen, center):
-	mainImg = pygame.image.load('assets/main.png')
+	mainImg = pygame.image.load('assets/image/main.png')
 	screen.blit(mainImg,(0,0))
 	
 # change position of drawbox	
@@ -24,7 +29,7 @@ def func_testText(screen, text):
 	screen.blit(textsurface,(0,0))
 	
 def func_testImage(screen):
-	mainImg = pygame.image.load('assets/main.png')
+	mainImg = pygame.image.load('assets/image/main.png')
 	screen.blit(mainImg,(0,0))
 
 	
@@ -33,4 +38,14 @@ def func_drawCenter(screen, center, dotColor, radius, width):
 	x = center[0]
 	y = center[1]
 	pygame.draw.circle(screen,(dotColor),(x,y), radius)
+	
+def func_PlaySound(path):
+	global audioPlay, play_obj
+	if not play_obj.is_playing():
+		wave_obj = sa.WaveObject.from_wave_file(path)
+		play_obj = wave_obj.play()
+		audioPlay = True
+
+def func_StopSound():
+	sa.stop_all()
 

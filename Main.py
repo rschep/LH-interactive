@@ -67,6 +67,7 @@ while(True):
 		# count += 1
 		# if count == 40:
 		# 	storyProgress = 1
+		func_PlaySound('assets/Audio/Zero-Sum_Drums.wav')
 		dotColor = 255,255,255
 		selectionSize -=1
 		selectionSize2 -=2
@@ -89,6 +90,7 @@ while(True):
 		
 	# main screen
 	if storyProgress == 1 and x > 75 and x < 125 and y > 50 and y < 300 :
+		func_StopSound()
 		func_testImage(screen)
 	else :
 		storyProgress = 0
@@ -100,7 +102,7 @@ while(True):
 	func_drawCenter(screen, center, dotColor, selectionSize, 15)
 	
 	# Show 
-	cv2.imshow('Video', frame)							# -- Uncomment for mask view --
+	# cv2.imshow('Video', frame)							# -- Uncomment for mask view --
 	pygame.display.update()
 	
 	# Quit functionality

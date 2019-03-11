@@ -5,7 +5,7 @@ from threading import Thread, Lock
 
 # Async webcam
 class VideoCaptureAsync:
-	def __init__(self, src = 0, width = 1920, height = 1080) :
+	def __init__(self, src = 0, width = 960, height = 540) :
 		self.stream = cv2.VideoCapture(src)
 		self.stream.set(cv2.CAP_PROP_FRAME_WIDTH, width)
 		self.stream.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
