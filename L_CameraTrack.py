@@ -1,6 +1,47 @@
 # import the necessary packages
 import cv2
 import imutils
+from threading import Thread, Lock
+
+# Async webcam
+class VideoCaptureAsync:
+	def __init__(self, src = 0, width = 1920, height = 1080) :
+		self.stream = cv2.VideoCapture(src)
+		self.stream.set(cv2.CAP_PROP_FRAME_WIDTH, width)
+		self.stream.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
+		(self.grabbed, self.frame) = self.stream.read()
+		self.started = False
+		self.read_lock = Lock()
+
+	def start(self) :
+		if self.started :
+			print("already started!!")
+			return None
+		self.started = True
+		self.thread = Thread(target=self.update, args=())
+		self.thread.start()
+		return self
+
+	def update(self) :
+		while self.started :
+			(grabbed, frame) = self.stream.read()
+			self.read_lock.acquire()
+			self.grabbed, self.frame = grabbed, frame
+			self.read_lock.release()
+
+	def read(self) :
+		self.read_lock.acquire()
+		frame = self.frame.copy()
+		self.read_lock.release()
+		return frame
+
+	def stop(self) :
+		self.started = False
+		self.thread.join()
+
+	def __exit__(self, exc_type, exc_value, traceback) :
+		self.stream.release()
+	
 
 # calculate position
 def func_CalcXY(frame, objLower, objUpper):
@@ -24,6 +65,7 @@ def func_CalcXY(frame, objLower, objUpper):
 	# return mask						# uncomment for mask view
 	return center					# uncomment for position return
 	
+# return mask view	
 def func_Mask(frame, objLower, objUpper):
 	blurred = cv2.GaussianBlur(frame, (11, 11), 0)
 	hsv = cv2.cvtColor(blurred, cv2.COLOR_BGR2HSV)
