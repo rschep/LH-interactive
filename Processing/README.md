@@ -12,7 +12,9 @@
 
 Place libusb0.dll in C:\Windows\System32 and C:\Windows\SysWOW64
 
+#### Library
 
+Place library folders into C:\\..\Documents\Processing\libraries
 
 # Information 
 
