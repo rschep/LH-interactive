@@ -5,6 +5,7 @@ TSPS tspsReceiver;
 // init variables 
 float posX = 0;
 float posY = 0;
+int check = 0;
 
 void setup(){
   size(1024,768);
@@ -21,11 +22,18 @@ void draw(){
       people[i].draw(); 
       posX = people[i].centroid.x;
       posY = people[i].centroid.y;
+      //checkBounding(posX, posY)      // -- Comment for mouse control -- //
   };
   
   // -- Mouse control -- //
   posX = mouseX;
   posY = mouseY;
+  check = checkBounding(posX, posY);
+  if(check == 0)
+     stopAudio(); 
+  else
+    startAudio(check);
+  
   
   drawPerson(people);
 }
