@@ -12,6 +12,7 @@ void setup(){
   // all you need to do to start TSPS
   tspsReceiver= new TSPS(this, 12000);
   setupAudio();
+  setupMidi();
 };
 
 void draw(){
