@@ -8,10 +8,10 @@ float posY = 0;
 int check = 0;
 
 void setup(){
-  size(1024,768);
+  size(1024,768); 
   // all you need to do to start TSPS
   tspsReceiver= new TSPS(this, 12000);
-  setupAudio();
+  //setupAudio();
   setupMidi();
 };
 
@@ -30,10 +30,13 @@ void draw(){
   posX = mouseX;
   posY = mouseY;
   check = checkBounding(posX, posY);
-  if(check == 0)
-     stopAudio(); 
+  println(check);
+  if(check == 0){
+     println("nok"); 
+     MidiADSRMinus();
+  }
   else
-    startAudio(check);
+    MidiADSR();
   
   
   drawPerson(people);
