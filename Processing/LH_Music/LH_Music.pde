@@ -32,11 +32,12 @@ void draw(){
   check = checkBounding(posX, posY);
   println(check);
   if(check == 0){
+     MuteAll();
      println("nok"); 
-     MidiADSRMinus();
+     // MidiADSRMinus(check);
   }
   else
-    MidiADSR();
+    MidiADSR(check);
   
   
   drawPerson(people);
