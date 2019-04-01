@@ -1,40 +1,72 @@
 import rwmidi.*;
-
-int midiCh, tempMidiCh;
-int[] tempadsr1 = {0,0,0,0,0};
-
+MidiOutput outputVolume;
 
 // init variable 
-MidiOutput output;
+int r;                                              // random selector variable
+int volumeDownCount = 0;                            // volume down timer
+int[] volumeUpCount       = {0,0,0,0,0,0};          // counts how many times the volume for a specific emotion is increased
+int[] volumeSelectedTrack = {0,0,0,0,0,0};          // keeps track of wich track is affected by change 
+int[] volumeEmotion       = {0,0,0,0,0,0,0,0,0,0,
+                             0,0,0,0,0,0,0,0,0,0,
+                             0,0,0,0,0,0,0,0,0,0,
+                             0,0,0,0,0,0,0,0,0,0,
+                             0,0,0,0,0,0,0,0,0,0,
+                             0,0,0,0,0,0,0,0,0,0};  // current volume for emotions 
 
 void setupMidi(){  
   //println(RWMidi.getOutputDevices()[3]);
-  output = RWMidi.getOutputDevices()[3].createOutput();
-  //println(output.sendNoteOn(0,55,64));
+  outputVolume = RWMidi.getOutputDevices()[3].createOutput();
   } 
   
-void MidiADSR(int midi)
-{
-  midiCh = 60+midi;
-  println(output.sendController(0,midiCh,tempadsr1[midi]));
-  tempadsr1[midi] ++;
-  if(tempadsr1[midi] >= 126)
-    tempadsr1[midi] = 126;
+void volumeUp(int emotion) {
+  volumeUpCount[emotion]++;
+  if(volumeUpCount[emotion] >=25)
+    randomTrackSelector(emotion);
+  volumeEmotion[volumeSelectedTrack[emotion]]++;
+  if(volumeEmotion[volumeSelectedTrack[emotion]] <= 10)      // initial start volume when track is low on volume
+    volumeEmotion[volumeSelectedTrack[emotion]] = 10;
+  if(volumeEmotion[volumeSelectedTrack[emotion]] >= 126)     // max volume for a track 
+    volumeEmotion[volumeSelectedTrack[emotion]] = 126;
+  outputVolume.sendController(0,60+volumeSelectedTrack[emotion],volumeEmotion[volumeSelectedTrack[emotion]]);
 }
 
-void MidiADSRMinus(int midi){
-  
-  output.sendController(0,midiCh,tempadsr1[midi]);
-  tempadsr1[midi] --;
-  if (tempadsr1[midi] <= 0)
-    tempadsr1[midi] = 0;
+void volumeDown() {
+  volumeDownCount++;
+  if(volumeDownCount >=500) {
+    volumeDownCount = 0;
+    r = int(random(0, 59));
+    if(volumeEmotion[r]>0)
+      volumeEmotion[r] = volumeEmotion[r]-3;
+    outputVolume.sendController(0,60+r,volumeEmotion[r]);
+  }
 }
 
-void MuteAll(){
-  midiCh = 60;
-  for (int i = 0; i < tempadsr1.length; i++){
-    tempMidiCh = midiCh + i;
-      output.sendController(0, tempMidiCh, 0);
-      tempadsr1[i] = 0;
-    }
+// -- HELPERS -- // 
+void randomTrackSelector(int emotion) {
+  switch(emotion) {
+  case 0: 
+    volumeUpCount[0] = 0;
+    r = int(random(0, 9)); volumeSelectedTrack[0] = r;
+    break;
+  case 1: 
+    volumeUpCount[1] = 0;
+    r = int(random(10, 19)); volumeSelectedTrack[1] = r;
+    break;
+  case 2: 
+    volumeUpCount[2] = 0;
+    r = int(random(20, 29)); volumeSelectedTrack[2] = r;
+    break;
+  case 3: 
+    volumeUpCount[3] = 0;
+    r = int(random(30, 39)); volumeSelectedTrack[3] = r;
+    break;
+  case 4: 
+    volumeUpCount[4] = 0;
+    r = int(random(40, 49)); volumeSelectedTrack[4] = r;
+    break;
+  case 5: 
+    volumeUpCount[5] = 0;
+    r = int(random(50, 59)); volumeSelectedTrack[5] = r;
+    break;
+  }
 }
