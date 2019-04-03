@@ -38,7 +38,7 @@ skippedFrames = False
 while(True):
 	pygame.event.get()			# fix for unresponsive window
 	clock.tick(60)				# FPS cap
-	frame = cap.read()			# Capture frame
+	ret, frame = cap.read()		# Capture frame
 	
 	# SHPEED HACK | Disable original cap.read if this is enabled
 	#if skippedFrames == False:
@@ -46,11 +46,12 @@ while(True):
 	#	skippedFrames = True
 	#else:
 	#	skippedFrames == False
-
-	frame = cv2.flip(frame,1)												# flip mirror
-	frame = cv2.resize(frame,(resX,resY),interpolation=cv2.INTER_LINEAR)	# Resize frame
-	center = func_CalcXY(frame, objLower, objUpper)							# Calculate position
-	frame = func_Mask(frame, objLower, objUpper)    						# Mask view
+	
+	if ret == True:
+		frame = cv2.flip(frame,1)												# flip mirror
+		frame = cv2.resize(frame,(resX,resY),interpolation=cv2.INTER_LINEAR)	# Resize frame
+		center = func_CalcXY(frame, objLower, objUpper)							# Calculate position
+		frame = func_Mask(frame, objLower, objUpper)    						# Mask view
 	center = pygame.mouse.get_pos() 										# -- Uncomment for mouse control --
 	screen.fill(black)														# Reset screen
 
@@ -81,8 +82,12 @@ while(True):
 	# Draw circle
 	func_drawCenter(screen, center, dotColor)
 	
-	# Show 
-	# cv2.imshow('Video', frame)							# -- Uncomment for mask view --
+	# Show
+	if ret == True:
+		cv2.imshow('Video', frame)							# -- Uncomment for mask view --
+	else: 
+		func_testText(screen, "Webcam unavaiable")
+		
 	pygame.display.update()
 	
 	# Quit functionality

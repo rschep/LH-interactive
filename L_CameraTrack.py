@@ -29,11 +29,13 @@ class VideoCaptureAsync:
 			self.grabbed, self.frame = grabbed, frame
 			self.read_lock.release()
 
-	def read(self) :
-		self.read_lock.acquire()
-		frame = self.frame.copy()
-		self.read_lock.release()
-		return frame
+	def read(self):
+		with self.read_lock:
+			frame = ""
+			grabbed = self.grabbed
+			if grabbed == True:
+				frame = self.frame.copy()
+		return grabbed, frame
 
 	def stop(self) :
 		self.started = False
