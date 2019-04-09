@@ -11,14 +11,14 @@ void drawPerson(TSPSPerson[] people){
 }
 
 
-ArrayList<Particle> parts = new ArrayList();
 float r_part;
 color k;
 float mx, my;
 color rcolor() { 
   return(color(random(255), random(255), random(255)));
 }
-PImage img;
+PImage img_heart;
+PImage img_skulls;
 
 //void draw() {
   //background(255, 188, 227);
@@ -54,6 +54,7 @@ class Particle {
   boolean isZoned;
   float zx, zy, zr;
   color zc;
+  PImage img;
   
   Particle(float ipx, float ipy, color ic, PImage imgP) { 
     px=ipx;
@@ -101,6 +102,7 @@ class Particle {
     //    if ( random(1) < 0.01 ) {
     //    isZoned = false;
     //}
+    //recolorImg(255, 255, 0);
   }
   void joinZone(float izx, float izy, float izr, color izc) {
     if (dist(px, py, izx, izy)<izr) {
@@ -109,6 +111,12 @@ class Particle {
       zr = izr;
       zc = izc;
       isZoned = true;
-    }
+    }  
   }
+  void recolorImg(int r_new, int g_new, int b_new) {
+  // new_++ img = new_img;
+  // easier to do with white svg's (>= 250, 250, 250, 250). For now with black
+
+ }
 }
+
