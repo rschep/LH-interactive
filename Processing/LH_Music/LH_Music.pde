@@ -9,7 +9,7 @@ float visuals_age = 100;
 int pos = 0;
 int visual_pos = 0;
 ArrayList<Particle> parts = new ArrayList();
-
+Background backgroundR;
 
 void setup(){
   size(1024,768); 
@@ -26,6 +26,9 @@ void setup(){
   img_skulls.resize(100, 0);
 
   noStroke();
+  
+  backgroundR = new Background(100.0, 100.0, 100.0);
+  backgroundR.draw();
 
 };
 

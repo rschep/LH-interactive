@@ -120,3 +120,22 @@ class Particle {
  }
 }
 
+
+class Background {
+  FloatList rgb;
+  }
+
+  float getBackground(){
+    return rgb;
+  }
+  
+  void setBackground(float r, float g, float b){
+    this.r = rgb[0];
+    this.g = rgb[1];
+    this.b = rgb[2];
+  }
+  
+  void draw {
+    background(rgb[0] ,rgb[1],rgb[2]);
+
+  }
