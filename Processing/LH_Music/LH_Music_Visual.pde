@@ -114,28 +114,66 @@ class Particle {
     }  
   }
   void recolorImg(int r_new, int g_new, int b_new) {
-  // new_++ img = new_img;
-  // easier to do with white svg's (>= 250, 250, 250, 250). For now with black
-
+  for (int i = 0; i < img.pixels.length; i++){
+    if (img.pixels[i] <= color(250, 250, 255)) {
+      img.pixels[i] = color(255, 255, 0);
+    }
+  }
  }
 }
 
 
 class Background {
-  FloatList rgb;
-  }
+  float r_bg;
+  float g_bg;
+  float b_bg;
 
-  float getBackground(){
-    return rgb;
+  float r_new, b_new, g_new;
+
+  FloatList rbg_list;
+  
+  
+  Background (float r, float g, float b) {
+  r_bg = r;
+  g_bg = g;
+  b_bg = b;
   }
   
-  void setBackground(float r, float g, float b){
-    this.r = rgb[0];
-    this.g = rgb[1];
-    this.b = rgb[2];
+  public void drawBG(){
+    background(r_bg, g_bg, b_bg);  
+  }
+  public void loveBG(){
+    r_new = 247.0;
+    g_new = 34.0;
+    b_new = 91.0;
+    
+    float inc = 0.3;
+    
+    if (r_new > r_bg){
+      r_bg+=inc;
+    }
+    else if (r_new < r_bg){
+      r_bg-=inc;
+    }
+    
+    if (g_new > g_bg){
+      g_bg+=inc;
+    }
+    else if (g_new < g_bg){
+      g_bg-=inc;
+    }
+    
+    if (b_new > b_bg){
+      b_bg+=inc;
+    }
+    else if (b_new < b_bg){
+      b_bg-=inc;
+    }
+    background(r_bg, g_bg, b_bg);    
   }
   
-  void draw {
-    background(rgb[0] ,rgb[1],rgb[2]);
+//  public float getBG(){
+//    return r_bg, g_bg, b_bg;
+//  }
+}
 
-  }

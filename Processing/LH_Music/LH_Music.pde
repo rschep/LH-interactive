@@ -27,8 +27,8 @@ void setup(){
 
   noStroke();
   
-  backgroundR = new Background(100.0, 100.0, 100.0);
-  backgroundR.draw();
+  //backgroundR.draw();
+    backgroundR = new Background(100.0, 100.0, 100.0);
 
 };
 
@@ -36,7 +36,7 @@ void draw(){
   float r = 255;
   float g = 188;
   float b = 227;
-  
+
   
   TSPSPerson[] people = tspsReceiver.getPeopleArray();      // position by camera 
   for (int i=0; i<people.length; i++) {
@@ -65,25 +65,35 @@ void draw(){
   
   volumeDown();
   // background(r,g,b);
-  background(100,100,100);
+  // background(100,100,100);
+  //println(backgroundR.getBG());
+  backgroundR.drawBG();
+
   drawPerson(people);
       
   // visuals
   visual_pos = checkBounding(posX, posY);
   
-  if (visual_pos == 1 && parts.size() < 100) {
+  if (visual_pos == 1) {
+    backgroundR.loveBG();
+    if (parts.size() < 100) {
       parts.add( new Particle( random(width), random(height), rcolor(),  img_heart) );
+    }
   }
   else if (visual_pos == 2 && parts.size() < 100) {
       parts.add( new Particle( random(width), random(height), rcolor(),  img_skulls) );
   }
+  else if (visual_pos == 0 && parts.size() < 100) {
+      visuals_age = visuals_age + 0.2; 
+      backgroundR.drawBG();
+  }
 
-  for ( int i=0; i < parts.size() - visuals_age; i++) {
+  for (int i=0; i < parts.size() - visuals_age; i++) {
     parts.get(i).draw();   
   }      
   println("part size:" + parts.size());
-  println("visuals age: " + visuals_age);
-  println("visual pos: " + visual_pos);
+  //println("visuals age: " + visuals_age);
+  //)println("visual pos: " + visual_pos);
   
   if (visual_pos != 0 && visuals_age > 1) {
     visuals_age = visuals_age - 0.8;
@@ -91,10 +101,4 @@ void draw(){
     visuals_age = visuals_age + 0.2; 
   }
 }
-
-
-
-
-
-
 
