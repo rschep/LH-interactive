@@ -32,11 +32,11 @@ void volumeUp(int emotion) {
 
 void volumeDown() {
   volumeDownCount++;
-  if(volumeDownCount >=500) {
+  if(volumeDownCount >=5) {
     volumeDownCount = 0;
     r = int(random(0, 59));
     if(volumeEmotion[r]>0)
-      volumeEmotion[r] = volumeEmotion[r]-3;
+      volumeEmotion[r] = volumeEmotion[r]-1;
     outputVolume.sendController(0,60+r,volumeEmotion[r]);
   }
 }

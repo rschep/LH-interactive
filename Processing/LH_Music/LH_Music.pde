@@ -40,9 +40,10 @@ void draw(){
       age = people[i].age;            // get age of person  
       posX = people[i].centroid.x;    // get x position of person
       posY = people[i].centroid.y;    // get y position of person
-      
+      println(posX);
+      println(posY);
       // music 
-      if (age % 100 == 0) {    
+      if (age % 10 == 0) {    
          pos = checkBounding(posX, posY);
          if(pos > 0) {
            pos--;
@@ -52,13 +53,16 @@ void draw(){
   }
 
   
-  // SS Manual Override Control SS //
+  /*// SS Manual Override Control SS //
   posX = mouseX;
   posY = mouseY;
   pos = checkBounding(posX, posY);
-  pos = 1;
-  volumeUp(pos);
-  // EE Manual Override control EE //
+  //pos = 0;
+  println(pos);
+  if (pos != 0)
+    volumeUp(pos-1);
+  
+  // EE Manual Override control EE //*/
   
   volumeDown();
   // background(r,g,b);
@@ -78,9 +82,9 @@ void draw(){
   for ( int i=0; i < parts.size() - visuals_age; i++) {
     parts.get(i).draw();   
   }      
-  println("part size:" + parts.size());
+  /*println("part size:" + parts.size());
   println("visuals age: " + visuals_age);
-  println("visual pos: " + visual_pos);
+  println("visual pos: " + visual_pos);*/
   
   if (visual_pos != 0 && visuals_age > 1) {
     visuals_age = visuals_age - 0.8;
