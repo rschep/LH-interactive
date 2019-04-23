@@ -1,5 +1,6 @@
 import rwmidi.*;
 MidiOutput outputVolume;
+MidiOutput outputDMX;
 
 // init variable 
 int r;                                              // random selector variable
@@ -16,6 +17,7 @@ int[] volumeEmotion       = {0,0,0,0,0,0,0,0,0,0,
 void setupMidi(){  
   //println(RWMidi.getOutputDevices()[3]);
   outputVolume = RWMidi.getOutputDevices()[3].createOutput();
+  outputDMX    = RWMidi.getOutputDevices()[4].createOutput();
   } 
   
 void volumeUp(int emotion) {
@@ -25,14 +27,14 @@ void volumeUp(int emotion) {
   volumeEmotion[volumeSelectedTrack[emotion]]++;
   if(volumeEmotion[volumeSelectedTrack[emotion]] <= 10)      // initial start volume when track is low on volume
     volumeEmotion[volumeSelectedTrack[emotion]] = 10;
-  if(volumeEmotion[volumeSelectedTrack[emotion]] >= 126)     // max volume for a track 
-    volumeEmotion[volumeSelectedTrack[emotion]] = 126;
+  if(volumeEmotion[volumeSelectedTrack[emotion]] >= 122)     // max volume for a track 
+    volumeEmotion[volumeSelectedTrack[emotion]] = 122;
   outputVolume.sendController(0,60+volumeSelectedTrack[emotion],volumeEmotion[volumeSelectedTrack[emotion]]);
 }
 
 void volumeDown() {
   volumeDownCount++;
-  if(volumeDownCount >=5) {
+  if(volumeDownCount >=10) {
     volumeDownCount = 0;
     r = int(random(0, 59));
     if(volumeEmotion[r]>0)

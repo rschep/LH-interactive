@@ -20,6 +20,10 @@ color rcolor() {
 PImage img_heart;
 PImage img_skulls;
 
+int[]   enabledLights       = {0,0,0,0,0,0}; 
+int[]   tempLights          = {0,0,0,0,0,0}; 
+boolean refresh             = false;
+
 //void draw() {
   //background(255, 188, 227);
 
@@ -114,66 +118,33 @@ class Particle {
     }  
   }
   void recolorImg(int r_new, int g_new, int b_new) {
-  for (int i = 0; i < img.pixels.length; i++){
-    if (img.pixels[i] <= color(250, 250, 255)) {
-      img.pixels[i] = color(255, 255, 0);
-    }
-  }
+  // new_++ img = new_img;
+  // easier to do with white svg's (>= 250, 250, 250, 250). For now with black
+
  }
 }
 
-
-class Background {
-  float r_bg;
-  float g_bg;
-  float b_bg;
-
-  float r_new, b_new, g_new;
-
-  FloatList rbg_list;
-  
-  
-  Background (float r, float g, float b) {
-  r_bg = r;
-  g_bg = g;
-  b_bg = b;
+// DMX 
+void EnableLight(int emotion) {
+  refresh = true;
+  if(enabledLights[emotion] == 0)  // Light off
+  {
+      enabledLights[emotion] = 1;
+      tempLights[emotion]    = 1;
+      outputDMX.sendController(0,emotion+1,127);
   }
-  
-  public void drawBG(){
-    background(r_bg, g_bg, b_bg);  
-  }
-  public void loveBG(){
-    r_new = 247.0;
-    g_new = 34.0;
-    b_new = 91.0;
-    
-    float inc = 0.3;
-    
-    if (r_new > r_bg){
-      r_bg+=inc;
-    }
-    else if (r_new < r_bg){
-      r_bg-=inc;
-    }
-    
-    if (g_new > g_bg){
-      g_bg+=inc;
-    }
-    else if (g_new < g_bg){
-      g_bg-=inc;
-    }
-    
-    if (b_new > b_bg){
-      b_bg+=inc;
-    }
-    else if (b_new < b_bg){
-      b_bg-=inc;
-    }
-    background(r_bg, g_bg, b_bg);    
-  }
-  
-//  public float getBG(){
-//    return r_bg, g_bg, b_bg;
-//  }
 }
-
+  
+void CheckLight() {
+  if (refresh == true)
+  {
+    for (int i=0; i<enabledLights.length; i++){
+        if(enabledLights[i] != tempLights[i])
+        {
+          outputDMX.sendController(0,i+1,0);
+          enabledLights[i] = 0;
+          tempLights[i] = 0;
+        }
+    };
+  }
+}

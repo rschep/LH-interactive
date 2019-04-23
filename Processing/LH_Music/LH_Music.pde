@@ -48,6 +48,7 @@ void draw(){
          if(pos > 0) {
            pos--;
            volumeUp(pos);
+           EnableLight(pos);
          }         
       }
   }
@@ -63,8 +64,9 @@ void draw(){
     volumeUp(pos-1);
   
   // EE Manual Override control EE //*/
-  
+    
   volumeDown();
+  CheckLight();
   // background(r,g,b);
   background(100,100,100);
   drawPerson(people);
