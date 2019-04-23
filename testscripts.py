@@ -1,25 +1,20 @@
-import sys, pygame
-pygame.init()
+import numpy as np
+import cv2
 
-size = width, height = 320, 240
-speed = [2, 2]
-black = 0, 0, 0
+cap = cv2.VideoCapture(0)
 
-screen = pygame.display.set_mode(size)
+while(True):
+    # Capture frame-by-frame
+    ret, frame = cap.read()
 
-ball = pygame.image.load("assets/download.jpg")
-ballrect = ball.get_rect()
+    # Our operations on the frame come here
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-while 1:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT: sys.exit()
-
-    ballrect = ballrect.move(speed)
-    if ballrect.left < 0 or ballrect.right > width:
-        speed[0] = -speed[0]
-    if ballrect.top < 0 or ballrect.bottom > height:
-        speed[1] = -speed[1]
-
-    screen.fill(black)
-    screen.blit(ball, ballrect)
-    pygame.display.flip()
+    # Display the resulting frame
+    cv2.imshow('frame',gray)
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+    print(cap.isOpened())
+# When everything done, release the capture
+cap.release()
+cv2.destroyAllWindows()

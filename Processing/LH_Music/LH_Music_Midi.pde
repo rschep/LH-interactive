@@ -17,7 +17,7 @@ int[] volumeEmotion       = {0,0,0,0,0,0,0,0,0,0,
 void setupMidi(){  
   //println(RWMidi.getOutputDevices()[3]);
   outputVolume = RWMidi.getOutputDevices()[3].createOutput();
-  outputDMX    = RWMidi.getOutputDevices()[4].createOutput();
+  //outputDMX    = RWMidi.getOutputDevices()[4].createOutput();
   } 
   
 void volumeUp(int emotion) {

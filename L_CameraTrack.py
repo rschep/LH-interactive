@@ -2,19 +2,22 @@
 import cv2
 import imutils
 from threading import Thread, Lock
+import time
 
 # Async webcam
 class VideoCaptureAsync:
 	def __init__(self, src = 0, width = 960, height = 540) :
 		self.stream = cv2.VideoCapture(src)
+		c = cv2.waitKey(10)
+
 		self.stream.set(cv2.CAP_PROP_FRAME_WIDTH, width)
 		self.stream.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
 		(self.grabbed, self.frame) = self.stream.read()
 		self.started = False
 		self.read_lock = Lock()
 
-	def start(self) :
-		if self.started :
+	def start(self):
+		if self.started:
 			print("already started!!")
 			return None
 		self.started = True
@@ -22,7 +25,7 @@ class VideoCaptureAsync:
 		self.thread.start()
 		return self
 
-	def update(self) :
+	def update(self):
 		while self.started :
 			(grabbed, frame) = self.stream.read()
 			self.read_lock.acquire()
@@ -31,15 +34,23 @@ class VideoCaptureAsync:
 
 	def read(self):
 		with self.read_lock:
-			frame = ""
+			frame = None
 			grabbed = self.grabbed
 			if grabbed == True:
 				frame = self.frame.copy()
 		return grabbed, frame
 
-	def stop(self) :
+	def stop(self):
 		self.started = False
 		self.thread.join()
+
+	# def isOpen(self):
+	# 	# print(cv2.self.isOpened())
+	# 	# self.isOpened = False
+	# 	# if (self.stream.isOpened()):
+	# 	# 	stream.open()
+	# 	# 	isOpened = True
+	# 	# print(cv2.isOpened())
 
 	def __exit__(self, exc_type, exc_value, traceback) :
 		self.stream.release()

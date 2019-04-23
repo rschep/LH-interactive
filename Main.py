@@ -21,7 +21,6 @@ storyProgress = 0
 # Capture webcam
 cap = VideoCaptureAsync(0)
 cap.start()
-
 # Init pygame
 pygame.init()
 clock = pygame.time.Clock()
@@ -39,7 +38,7 @@ while(True):
 	pygame.event.get()			# fix for unresponsive window
 	clock.tick(60)				# FPS cap
 	ret, frame = cap.read()		# Capture frame
-	
+
 	# SHPEED HACK | Disable original cap.read if this is enabled
 	#if skippedFrames == False:
 	#	ret, frame = cap.read()
