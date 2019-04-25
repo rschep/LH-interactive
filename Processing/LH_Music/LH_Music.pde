@@ -10,7 +10,7 @@ float visuals_age = 100;
 int pos = 0;
 int visual_pos = 0;
 ArrayList<Particle> parts = new ArrayList();
-
+int array_size = 100;
 Background backgroundR;
 
 
@@ -24,9 +24,11 @@ void setup(){
   ellipseMode(CENTER);
   img_heart = loadImage("heart-regular.png");
   img_skulls = loadImage("skull-crossbones-solid.png");
+  img_circle = loadImage("circle.png");
 
   img_heart.resize(100,0);
   img_skulls.resize(100, 0);
+  img_circle.resize(500, 0);
 
   noStroke();
   
@@ -37,11 +39,6 @@ void setup(){
 };
 
 void draw(){
-  float r = 255;
-  float g = 188;
-  float b = 227;
-  
-  
   TSPSPerson[] people = tspsReceiver.getPeopleArray();      // position by camera 
   for (int i=0; i<people.length; i++) {
       age = people[i].age;            // get age of person  
@@ -65,7 +62,6 @@ void draw(){
   posX = mouseX;
   posY = mouseY;
   pos = checkBounding(posX, posY);
-  //pos = 0;
   println(pos);
   if (pos != 0)
     volumeUp(pos-1);
@@ -76,44 +72,57 @@ void draw(){
   CheckLight();
   backgroundR.drawBG();
 
-  // background(r,g,b);
-  // background(100,100,100);
   drawPerson(people);
-      
+
   // visuals
   visual_pos = checkBounding(posX, posY);
   
   if (visual_pos == 1) {
     backgroundR.loveBG();
-    if (parts.size() < 100) {
-      parts.add( new Particle( random(width), random(height), rcolor(),  img_heart) );
+    if (parts.size() < array_size) {
+      parts.add(new Particle(random(width), random(height), rcolor(),  img_heart));
     }
   }
-  else if (visual_pos == 2) {
+  if (visual_pos == 2) {
     backgroundR.fearBG();
-    if (parts.size() < 100) {
-      parts.add( new Particle( random(width), random(height), rcolor(),  img_skulls) );
+    if (parts.size() < array_size) {
+      parts.add(new Particle(random(width), random(height), rcolor(),  img_skulls));
         }
   }
-  else if (visual_pos == 0 && parts.size() < 101) {
-      // visuals_age = visuals_age + 0.2; 
+  if (visual_pos == 3) {
+    backgroundR.angerBG();
+    if (parts.size() < array_size) {
+      parts.add(new Particle(random(width), random(height), rcolor(), img_circle));
+    }
+  }
+  if (visual_pos == 4) {
+    backgroundR.joyBG();
+    if (parts.size() < array_size) {
+      parts.add(new Particle(random(width), random(height), rcolor(), img_circle));
+    }
+  }
+  if (visual_pos == 5) {
+    backgroundR.sadnessBG();
+    if (parts.size() < array_size) {
+      parts.add(new Particle(random(width), random(height), rcolor(), img_circle));
+    }
+  }
+  if (visual_pos == 6) {
+    backgroundR.peaceBG();
+    if (parts.size() < array_size) {
+      parts.add(new Particle(random(width), random(height), rcolor(), img_circle));
+    }
+  }
+  if (visual_pos == 0 && parts.size() < 101) {
       backgroundR.neutralBG();
   }
-  
-  println(visuals_age);
 
-
-  for (int i = 0; i < parts.size() - visuals_age; i++) {
-    parts.get(i).draw();   
-  }      
-  /*println("part size:" + parts.size());
-  println("visuals age: " + visuals_age);
-  println("visual pos: " + visual_pos);*/
+ for (int i = 0; i < parts.size(); i++){
+    parts.get(i).draw();
+  }
   
-  if (visual_pos != 0 && visuals_age > 1) {
-    visuals_age = visuals_age - 0.8;
-  } else if (visuals_age <= 100)  {
-    visuals_age = visuals_age + 0.2; 
+  if (visual_pos == 0 && parts.size() >= 1) {
+    parts.remove(parts.size() - 1);
   }
 }
 

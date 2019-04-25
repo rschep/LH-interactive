@@ -19,6 +19,7 @@ color rcolor() {
 }
 PImage img_heart;
 PImage img_skulls;
+PImage img_circle;
 
 int[]   enabledLights       = {
   0, 0, 0, 0, 0, 0
@@ -63,6 +64,7 @@ class Particle {
   float zx, zy, zr;
   color zc;
   PImage img;
+  float alpha;
 
   Particle(float ipx, float ipy, color ic, PImage imgP) { 
     px=ipx;
@@ -72,6 +74,7 @@ class Particle {
     c=ic;
     isZoned = false;
     img = imgP;
+    alpha = random(150,230);
   }
 
   void move() {
@@ -100,6 +103,8 @@ class Particle {
   }
   void draw() {
     //float randnr = random(-10, 10);
+    // tint(255, alpha);
+    //recolorImg(255,255,255);
     move();
     image(img, px, py);
     rotate(10);
@@ -110,7 +115,6 @@ class Particle {
     //    if ( random(1) < 0.01 ) {
     //    isZoned = false;
     //}
-    //recolorImg(255, 255, 0);
   }
   void joinZone(float izx, float izy, float izr, color izc) {
     if (dist(px, py, izx, izy)<izr) {
@@ -121,14 +125,15 @@ class Particle {
       isZoned = true;
     }
   }
-  void recolorImg(int r_new, int g_new, int b_new) {
-    // new_++ img = new_img;
-    // easier to do with white svg's (>= 250, 250, 250, 250). For now with black
+  public void recolorImg(int r_new, int g_new, int b_new) {
     for (int i = 0; i < img.pixels.length; i++) {
-      if (img.pixels[i] <= color(250, 250, 255)) {
-        img.pixels[i] = color(255, 255, 0);
+      if (img.pixels[i] <= color(242, 242, 242)) {
+        img.pixels[i] = color(r_new, g_new, b_new);
       }
     }
+  }
+  public void setAlpha(int a_new){
+      tint(255, a_new);
   }
 }
 
@@ -149,7 +154,7 @@ class Background {
   public void drawBG() {
     background(r_bg, g_bg, b_bg);
   }
-
+  
   private float transitionRBG(float oldRGB, float newRGB) {
     float inc = 0.3;
 
