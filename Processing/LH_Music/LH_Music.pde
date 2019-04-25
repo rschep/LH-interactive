@@ -1,21 +1,20 @@
-
 // import dependencies
 import tsps.*;
 TSPS tspsReceiver;
 
 // init variables 
 float posX = 0, posY = 0;
-int age = 0;
+int   pos = 0;
+int   age = 0;
 float visuals_age = 100;
-int pos = 0;
-int visual_pos = 0;
+int   visual_pos = 0;
 ArrayList<Particle> parts = new ArrayList();
 
 Background backgroundR;
 
-
 void setup(){
-  size(1024,768); 
+  size(1024,768);
+  //size(displayWidth, displayHeight);
   // all you need to do to start TSPS
   tspsReceiver= new TSPS(this, 12000);
   setupMidi();
@@ -47,7 +46,7 @@ void draw(){
       age = people[i].age;            // get age of person  
       posX = people[i].centroid.x;    // get x position of person
       posY = people[i].centroid.y;    // get y position of person
-      //println("x: " + posX + " y: " + posY);
+      println("x: " + posX + " y: " + posY);
       // music 
       if (age % 10 == 0) {   
          pos = checkBounding(posX, posY);
@@ -68,7 +67,6 @@ void draw(){
   println(pos);
   if (pos != 0)
     volumeUp(pos-1);
-  
   // EE Manual Override control EE //
     
   volumeDown();
@@ -77,7 +75,7 @@ void draw(){
 
   // background(r,g,b);
   // background(100,100,100);
-  drawPerson(people);
+  //drawPerson(people);
       
   // visuals
   visual_pos = checkBounding(posX, posY);
@@ -114,6 +112,10 @@ void draw(){
   } else if (visuals_age <= 100)  {
     visuals_age = visuals_age + 0.2; 
   }
+  
+  // draw coords
+  textSize(32);
+  text(posX + " - " + posY, 10, 30); 
 }
 
 

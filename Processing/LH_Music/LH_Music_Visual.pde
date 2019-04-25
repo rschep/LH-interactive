@@ -23,8 +23,6 @@ PImage img_skulls;
 int[]   enabledLights       = {0,0,0,0,0,0}; 
 int[]   tempLights          = {0,0,0,0,0,0}; 
 
-boolean refresh             = false;
-
 //void draw() {
 //background(255, 188, 227);
 
@@ -259,9 +257,6 @@ void EnableLight() {
        posY = people[i].centroid.y;    // get y position of person
        pos = checkBounding(posX, posY); 
     }
-    posX = mouseX;
-    posY = mouseY;
-    pos = checkBounding(posX, posY);
     if(pos > 0) {
       pos--;
       if (y == pos) {
@@ -284,17 +279,4 @@ void EnableLight() {
     tempLights[y] = 0;
   }
 }
-
-
-
-/*void EnableLight(int emotion) {
-  if (enabledLights[emotion] == 0)  // Light off
-  {
-    enabledLights[emotion] = 1;
-    outputDMX.sendController(0, emotion+1, 126);
-  }
-  tempLights[emotion] = 1;
-  //refresh = true;
-}*/
-
 

@@ -36,7 +36,25 @@ void volumeDown() {
   volumeDownCount++;
   if(volumeDownCount >=2) {
     volumeDownCount = 0;
-    if(enabledLights[2] == 0)
+    if(enabledLights[0] == 0)
+    {
+      r = int(random(0, 9));
+      if(volumeEmotion[r]>0)
+      {
+      volumeEmotion[r] = volumeEmotion[r]-1;
+      outputVolume.sendController(0,60+r,volumeEmotion[r]);
+      }
+    }
+    else if(enabledLights[1] == 0)
+    {
+      r = int(random(10, 19));
+      if(volumeEmotion[r]>0)
+      {
+      volumeEmotion[r] = volumeEmotion[r]-1;
+      outputVolume.sendController(0,60+r,volumeEmotion[r]);
+      }
+    }
+    else if(enabledLights[2] == 0)
     {
       r = int(random(20, 29));
       if(volumeEmotion[r]>0)
@@ -45,17 +63,33 @@ void volumeDown() {
       outputVolume.sendController(0,60+r,volumeEmotion[r]);
       }
     }
-    /*for(int i=0; i<60; i++)
+    else if(enabledLights[3] == 0)
     {
-      r = int(random(0, 59));
+      r = int(random(30, 39));
       if(volumeEmotion[r]>0)
-        break;
-    }
-    if(volumeEmotion[r]>0)
-    {
+      {
       volumeEmotion[r] = volumeEmotion[r]-1;
       outputVolume.sendController(0,60+r,volumeEmotion[r]);
-    }*/
+      }
+    }
+    else if(enabledLights[4] == 0)
+    {
+      r = int(random(40, 49));
+      if(volumeEmotion[r]>0)
+      {
+      volumeEmotion[r] = volumeEmotion[r]-1;
+      outputVolume.sendController(0,60+r,volumeEmotion[r]);
+      }
+    }
+    else if(enabledLights[5] == 0)
+    {
+      r = int(random(50, 59));
+      if(volumeEmotion[r]>0)
+      {
+      volumeEmotion[r] = volumeEmotion[r]-1;
+      outputVolume.sendController(0,60+r,volumeEmotion[r]);
+      }
+    }
   }
 }
 
