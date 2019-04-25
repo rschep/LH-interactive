@@ -36,6 +36,13 @@ void setup(){
 };
 
 void draw(){
+<<<<<<< HEAD
+=======
+  float r = 255;
+  float g = 188;
+  float b = 227;
+  
+>>>>>>> 2461b0de4fd2ed8e739d0d26d79eaa0b31cf47b5
   TSPSPerson[] people = tspsReceiver.getPeopleArray();      // position by camera 
   for (int i=0; i<people.length; i++) {
       age = people[i].age;            // get age of person  
@@ -65,8 +72,15 @@ void draw(){
   EnableLight();
   backgroundR.drawBG();
 
-  // drawPerson(people);
+<<<<<<< HEAD
+  drawPerson(people);
 
+=======
+  // background(r,g,b);
+  // background(100,100,100);
+  // drawPerson(people);
+      
+>>>>>>> 2461b0de4fd2ed8e739d0d26d79eaa0b31cf47b5
   // visuals
   visual_pos = checkBounding(posX, posY);
   
@@ -109,14 +123,27 @@ void draw(){
   if (visual_pos == 0 && parts.size() < 101) {
       backgroundR.neutralBG();
   }
+<<<<<<< HEAD
+=======
+  
+  //println(visuals_age);
+>>>>>>> 2461b0de4fd2ed8e739d0d26d79eaa0b31cf47b5
 
  for (int i = 0; i < parts.size(); i++){
     parts.get(i).draw();
   }
   
+<<<<<<< HEAD
   if (visual_pos == 0 && parts.size() >= 1) {
     parts.remove(parts.size() - 1);
+  }
+=======
+  if (visual_pos != 0 && visuals_age > 1) {
+    visuals_age = visuals_age - 0.8;
+  } else if (visuals_age <= 100)  {
+    visuals_age = visuals_age + 0.2; 
   } 
+>>>>>>> 2461b0de4fd2ed8e739d0d26d79eaa0b31cf47b5
 }
 
 

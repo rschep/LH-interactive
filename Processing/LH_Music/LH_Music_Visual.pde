@@ -10,7 +10,6 @@ void drawPerson(TSPSPerson[] people) {
   };
 }
 
-
 float r_part;
 color k;
 float mx, my;
@@ -21,13 +20,8 @@ PImage img_heart;
 PImage img_skulls;
 PImage img_circle;
 
-int[]   enabledLights       = {
-  0, 0, 0, 0, 0, 0
-}; 
-int[]   tempLights          = {
-  0, 0, 0, 0, 0, 0
-}; 
-boolean refresh             = false;
+int[]   enabledLights       = {0,0,0,0,0,0}; 
+int[]   tempLights          = {0,0,0,0,0,0}; 
 
 //void draw() {
 //background(255, 188, 227);
@@ -259,27 +253,33 @@ class Background {
 }
 
 // DMX 
-void EnableLight(int emotion) {
-  refresh = true;
-  if (enabledLights[emotion] == 0)  // Light off
-  {
-    enabledLights[emotion] = 1;
-    tempLights[emotion]    = 1;
-    outputDMX.sendController(0, emotion+1, 127);
-  }
-}
-
-void CheckLight() {
-  if (refresh == true)
-  {
-    for (int i=0; i<enabledLights.length; i++) {
-      if (enabledLights[i] != tempLights[i])
-      {
-        outputDMX.sendController(0, i+1, 0);
-        enabledLights[i] = 0;
-        tempLights[i] = 0;
+void EnableLight() {
+  TSPSPerson[] people = tspsReceiver.getPeopleArray();
+  for (int y=0; y<enabledLights.length; y++) {
+    for (int i=0; i<people.length; i++) {
+       posX = people[i].centroid.x;    // get x position of person
+       posY = people[i].centroid.y;    // get y position of person
+       pos = checkBounding(posX, posY); 
+    }
+    if(pos > 0) {
+      pos--;
+      if (y == pos) {
+        tempLights[y] = 1;
       }
-    };
+    }
+  }
+  for (int y=0; y<tempLights.length; y++) {
+    if(tempLights[y] == 1 && enabledLights[y] == 0)
+    {
+      enabledLights[y] = 1;
+      outputDMX.sendController(0, y+1, 126);  
+    }
+    else if(tempLights[y] == 0 && enabledLights[y] == 1)
+    {
+      enabledLights[y] = 0;
+      outputDMX.sendController(0, y+1, 0);
+    }
+    tempLights[y] = 0;
   }
 }
 

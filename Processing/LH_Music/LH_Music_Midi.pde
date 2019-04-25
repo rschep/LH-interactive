@@ -17,29 +17,79 @@ int[] volumeEmotion       = {0,0,0,0,0,0,0,0,0,0,
 void setupMidi(){  
   //println(RWMidi.getOutputDevices()[3]);
   outputVolume = RWMidi.getOutputDevices()[3].createOutput();
-  //outputDMX    = RWMidi.getOutputDevices()[4].createOutput();
+  outputDMX    = RWMidi.getOutputDevices()[4].createOutput();
   } 
   
 void volumeUp(int emotion) {
   volumeUpCount[emotion]++;
-  if(volumeUpCount[emotion] >=25)
+  if(volumeUpCount[emotion] >=10)
     randomTrackSelector(emotion);
   volumeEmotion[volumeSelectedTrack[emotion]]++;
-  if(volumeEmotion[volumeSelectedTrack[emotion]] <= 10)      // initial start volume when track is low on volume
+  if(volumeEmotion[volumeSelectedTrack[emotion]] <= 8)      // initial start volume when track is low on volume
     volumeEmotion[volumeSelectedTrack[emotion]] = 10;
-  if(volumeEmotion[volumeSelectedTrack[emotion]] >= 122)     // max volume for a track 
-    volumeEmotion[volumeSelectedTrack[emotion]] = 122;
+  if(volumeEmotion[volumeSelectedTrack[emotion]] >= 120)     // max volume for a track 
+    volumeEmotion[volumeSelectedTrack[emotion]] = 120;
   outputVolume.sendController(0,60+volumeSelectedTrack[emotion],volumeEmotion[volumeSelectedTrack[emotion]]);
 }
 
 void volumeDown() {
   volumeDownCount++;
-  if(volumeDownCount >=10) {
+  if(volumeDownCount >=2) {
     volumeDownCount = 0;
-    r = int(random(0, 59));
-    if(volumeEmotion[r]>0)
+    if(enabledLights[0] == 0)
+    {
+      r = int(random(0, 9));
+      if(volumeEmotion[r]>0)
+      {
       volumeEmotion[r] = volumeEmotion[r]-1;
-    outputVolume.sendController(0,60+r,volumeEmotion[r]);
+      outputVolume.sendController(0,60+r,volumeEmotion[r]);
+      }
+    }
+    else if(enabledLights[1] == 0)
+    {
+      r = int(random(10, 19));
+      if(volumeEmotion[r]>0)
+      {
+      volumeEmotion[r] = volumeEmotion[r]-1;
+      outputVolume.sendController(0,60+r,volumeEmotion[r]);
+      }
+    }
+    else if(enabledLights[2] == 0)
+    {
+      r = int(random(20, 29));
+      if(volumeEmotion[r]>0)
+      {
+      volumeEmotion[r] = volumeEmotion[r]-1;
+      outputVolume.sendController(0,60+r,volumeEmotion[r]);
+      }
+    }
+    else if(enabledLights[3] == 0)
+    {
+      r = int(random(30, 39));
+      if(volumeEmotion[r]>0)
+      {
+      volumeEmotion[r] = volumeEmotion[r]-1;
+      outputVolume.sendController(0,60+r,volumeEmotion[r]);
+      }
+    }
+    else if(enabledLights[4] == 0)
+    {
+      r = int(random(40, 49));
+      if(volumeEmotion[r]>0)
+      {
+      volumeEmotion[r] = volumeEmotion[r]-1;
+      outputVolume.sendController(0,60+r,volumeEmotion[r]);
+      }
+    }
+    else if(enabledLights[5] == 0)
+    {
+      r = int(random(50, 59));
+      if(volumeEmotion[r]>0)
+      {
+      volumeEmotion[r] = volumeEmotion[r]-1;
+      outputVolume.sendController(0,60+r,volumeEmotion[r]);
+      }
+    }
   }
 }
 
