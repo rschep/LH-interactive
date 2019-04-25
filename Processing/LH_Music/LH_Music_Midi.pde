@@ -22,24 +22,23 @@ void setupMidi(){
   
 void volumeUp(int emotion) {
   volumeUpCount[emotion]++;
-  if(volumeUpCount[emotion] >=30)
+  if(volumeUpCount[emotion] >=10)
     randomTrackSelector(emotion);
   volumeEmotion[volumeSelectedTrack[emotion]]++;
   if(volumeEmotion[volumeSelectedTrack[emotion]] <= 8)      // initial start volume when track is low on volume
     volumeEmotion[volumeSelectedTrack[emotion]] = 10;
-  if(volumeEmotion[volumeSelectedTrack[emotion]] >= 122)     // max volume for a track 
-    volumeEmotion[volumeSelectedTrack[emotion]] = 122;
+  if(volumeEmotion[volumeSelectedTrack[emotion]] >= 120)     // max volume for a track 
+    volumeEmotion[volumeSelectedTrack[emotion]] = 120;
   outputVolume.sendController(0,60+volumeSelectedTrack[emotion],volumeEmotion[volumeSelectedTrack[emotion]]);
 }
 
 void volumeDown() {
   volumeDownCount++;
-  if(volumeDownCount >=5) {
+  if(volumeDownCount >=2) {
     volumeDownCount = 0;
-    //println(enabledLights[0]);
-    if(enabledLights[0] == 0)
+    if(enabledLights[2] == 0)
     {
-      r = int(random(0, 9));
+      r = int(random(20, 29));
       if(volumeEmotion[r]>0)
       {
       volumeEmotion[r] = volumeEmotion[r]-1;

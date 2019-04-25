@@ -20,8 +20,8 @@ color rcolor() {
 PImage img_heart;
 PImage img_skulls;
 
-int[]   enabledLights       = { 0, 0, 0, 0, 0, 0 }; 
-int[]   tempLights          = { 0, 0, 0, 0, 0, 0 }; 
+int[]   enabledLights       = {0,0,0,0,0,0}; 
+int[]   tempLights          = {0,0,0,0,0,0}; 
 
 boolean refresh             = false;
 
@@ -259,25 +259,29 @@ void EnableLight() {
        posY = people[i].centroid.y;    // get y position of person
        pos = checkBounding(posX, posY); 
     }
+    posX = mouseX;
+    posY = mouseY;
+    pos = checkBounding(posX, posY);
     if(pos > 0) {
       pos--;
-    if (y == pos) {
-      tempLights[y] = 1;
-    }
-    }
-    println(tempLights);
-    for (y=0; y<tempLights.length; y++) {
-      if(tempLights[y] == 1 && enabledLights[y] == 0)
-      {
-        enabledLights[y] = 1;
-        outputDMX.sendController(0, y+1, 126);  
-      }
-      else if(enabledLights[y] == 1)
-      {
-        enabledLights[y] = 0;
-        outputDMX.sendController(0, y+1, 0);
+      if (y == pos) {
+        tempLights[y] = 1;
       }
     }
+  }
+  //println(tempLights[2] + " - " +  enabledLights[2]);
+  for (int y=0; y<tempLights.length; y++) {
+    if(tempLights[y] == 1 && enabledLights[y] == 0)
+    {
+      enabledLights[y] = 1;
+      outputDMX.sendController(0, y+1, 126);  
+    }
+    else if(tempLights[y] == 0 && enabledLights[y] == 1)
+    {
+      enabledLights[y] = 0;
+      outputDMX.sendController(0, y+1, 0);
+    }
+    tempLights[y] = 0;
   }
 }
 

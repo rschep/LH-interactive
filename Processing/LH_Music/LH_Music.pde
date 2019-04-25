@@ -49,7 +49,7 @@ void draw(){
       posY = people[i].centroid.y;    // get y position of person
       //println("x: " + posX + " y: " + posY);
       // music 
-      if (age % 5 == 0) {   
+      if (age % 10 == 0) {   
          pos = checkBounding(posX, posY);
          if(pos > 0) {
            pos--;
@@ -61,13 +61,13 @@ void draw(){
   
   
   // SS Manual Override Control SS //
-  /*posX = mouseX;
+  posX = mouseX;
   posY = mouseY;
   pos = checkBounding(posX, posY);
   //pos = 0;
   println(pos);
   if (pos != 0)
-    volumeUp(pos-1);*/
+    volumeUp(pos-1);
   
   // EE Manual Override control EE //
     
