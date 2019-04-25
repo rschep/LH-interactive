@@ -105,11 +105,7 @@ void draw(){
     visuals_age = visuals_age - 0.8;
   } else if (visuals_age <= 100)  {
     visuals_age = visuals_age + 0.2; 
-  }
-  
-  // draw coords
-  textSize(32);
-  text("X: "posX + " - Y: " + posY, 10, 30); 
+  } 
 }
 
 
