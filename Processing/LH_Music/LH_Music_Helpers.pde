@@ -1,5 +1,4 @@
 // emotion positions {xStart, xEnd, yStart, yEnd}
-//float[] emo1 = {10,100,120,170};
 float[] emo1 = {0.9,1,0,1};
 float[] emo2 = {0,0.1,0,1};
 float[] emo3 = {10,100,120,170};

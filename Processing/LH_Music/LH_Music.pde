@@ -21,7 +21,7 @@ void setup(){
   
   //setup visuals
   ellipseMode(CENTER);
-  img_heart = loadImage("heart-regular.png");
+  img_heart  = loadImage("heart-regular.png");
   img_skulls = loadImage("skull-crossbones-solid.png");
 
   img_heart.resize(100,0);
@@ -31,15 +31,12 @@ void setup(){
   
   backgroundR = new Background(100.0, 100.0, 100.0);
   backgroundR.loveBG();
-
-
 };
 
 void draw(){
   float r = 255;
   float g = 188;
   float b = 227;
-  
   
   TSPSPerson[] people = tspsReceiver.getPeopleArray();      // position by camera 
   for (int i=0; i<people.length; i++) {
@@ -53,20 +50,18 @@ void draw(){
          if(pos > 0) {
            pos--;
            volumeUp(pos);
-           
          }       
       }
   }
   
-  
   // SS Manual Override Control SS //
-  posX = mouseX;
+  /*posX = mouseX;
   posY = mouseY;
   pos = checkBounding(posX, posY);
   //pos = 0;
   println(pos);
   if (pos != 0)
-    volumeUp(pos-1);
+    volumeUp(pos-1);*/
   // EE Manual Override control EE //
     
   volumeDown();
@@ -75,7 +70,7 @@ void draw(){
 
   // background(r,g,b);
   // background(100,100,100);
-  //drawPerson(people);
+  // drawPerson(people);
       
   // visuals
   visual_pos = checkBounding(posX, posY);
@@ -99,7 +94,6 @@ void draw(){
   
   //println(visuals_age);
 
-
   for (int i = 0; i < parts.size() - visuals_age; i++) {
     parts.get(i).draw();   
   }      
@@ -115,7 +109,7 @@ void draw(){
   
   // draw coords
   textSize(32);
-  text(posX + " - " + posY, 10, 30); 
+  text("X: "posX + " - Y: " + posY, 10, 30); 
 }
 
 

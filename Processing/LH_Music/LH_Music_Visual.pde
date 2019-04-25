@@ -10,7 +10,6 @@ void drawPerson(TSPSPerson[] people) {
   };
 }
 
-
 float r_part;
 color k;
 float mx, my;
@@ -264,7 +263,6 @@ void EnableLight() {
       }
     }
   }
-  //println(tempLights[2] + " - " +  enabledLights[2]);
   for (int y=0; y<tempLights.length; y++) {
     if(tempLights[y] == 1 && enabledLights[y] == 0)
     {
