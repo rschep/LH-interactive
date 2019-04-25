@@ -47,33 +47,32 @@ void draw(){
       age = people[i].age;            // get age of person  
       posX = people[i].centroid.x;    // get x position of person
       posY = people[i].centroid.y;    // get y position of person
-      println(posX);
-      println(posY);
+      //println("x: " + posX + " y: " + posY);
       // music 
-      if (age % 10 == 0) {    
+      if (age % 5 == 0) {   
          pos = checkBounding(posX, posY);
          if(pos > 0) {
            pos--;
            volumeUp(pos);
-           EnableLight(pos);
-         }         
+           
+         }       
       }
   }
-
+  
   
   // SS Manual Override Control SS //
-  posX = mouseX;
+  /*posX = mouseX;
   posY = mouseY;
   pos = checkBounding(posX, posY);
   //pos = 0;
   println(pos);
   if (pos != 0)
-    volumeUp(pos-1);
+    volumeUp(pos-1);*/
   
   // EE Manual Override control EE //
     
   volumeDown();
-  CheckLight();
+  EnableLight();
   backgroundR.drawBG();
 
   // background(r,g,b);
@@ -100,7 +99,7 @@ void draw(){
       backgroundR.neutralBG();
   }
   
-  println(visuals_age);
+  //println(visuals_age);
 
 
   for (int i = 0; i < parts.size() - visuals_age; i++) {

@@ -17,15 +17,15 @@ int[] volumeEmotion       = {0,0,0,0,0,0,0,0,0,0,
 void setupMidi(){  
   //println(RWMidi.getOutputDevices()[3]);
   outputVolume = RWMidi.getOutputDevices()[3].createOutput();
-  //outputDMX    = RWMidi.getOutputDevices()[4].createOutput();
+  outputDMX    = RWMidi.getOutputDevices()[4].createOutput();
   } 
   
 void volumeUp(int emotion) {
   volumeUpCount[emotion]++;
-  if(volumeUpCount[emotion] >=25)
+  if(volumeUpCount[emotion] >=30)
     randomTrackSelector(emotion);
   volumeEmotion[volumeSelectedTrack[emotion]]++;
-  if(volumeEmotion[volumeSelectedTrack[emotion]] <= 10)      // initial start volume when track is low on volume
+  if(volumeEmotion[volumeSelectedTrack[emotion]] <= 8)      // initial start volume when track is low on volume
     volumeEmotion[volumeSelectedTrack[emotion]] = 10;
   if(volumeEmotion[volumeSelectedTrack[emotion]] >= 122)     // max volume for a track 
     volumeEmotion[volumeSelectedTrack[emotion]] = 122;
@@ -34,12 +34,29 @@ void volumeUp(int emotion) {
 
 void volumeDown() {
   volumeDownCount++;
-  if(volumeDownCount >=10) {
+  if(volumeDownCount >=5) {
     volumeDownCount = 0;
-    r = int(random(0, 59));
-    if(volumeEmotion[r]>0)
+    //println(enabledLights[0]);
+    if(enabledLights[0] == 0)
+    {
+      r = int(random(0, 9));
+      if(volumeEmotion[r]>0)
+      {
       volumeEmotion[r] = volumeEmotion[r]-1;
-    outputVolume.sendController(0,60+r,volumeEmotion[r]);
+      outputVolume.sendController(0,60+r,volumeEmotion[r]);
+      }
+    }
+    /*for(int i=0; i<60; i++)
+    {
+      r = int(random(0, 59));
+      if(volumeEmotion[r]>0)
+        break;
+    }
+    if(volumeEmotion[r]>0)
+    {
+      volumeEmotion[r] = volumeEmotion[r]-1;
+      outputVolume.sendController(0,60+r,volumeEmotion[r]);
+    }*/
   }
 }
 
