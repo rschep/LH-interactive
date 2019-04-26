@@ -13,8 +13,9 @@ int array_size = 100;
 Background backgroundR;
 
 void setup(){
-  size(1024,768);
-  //size(displayWidth, displayHeight);
+  //size(1024,768);
+  frameRate(60);
+  size(displayWidth, displayHeight);
   // all you need to do to start TSPS
   tspsReceiver= new TSPS(this, 12000);
   setupMidi();
@@ -43,13 +44,13 @@ void draw(){
       posY = people[i].centroid.y;    // get y position of person
       println("x: " + posX + " y: " + posY);
       // music 
-      if (age % 10 == 0) {   
+      if (age % 5 == 0) {   
          pos = checkBounding(posX, posY);
          if(pos > 0) {
            pos--;
            volumeUp(pos);
-         }       
       }
+    }
   }
   
   // SS Manual Override Control SS //
@@ -69,38 +70,38 @@ void draw(){
 
   // visuals
   visual_pos = checkBounding(posX, posY);
-  
-  if (visual_pos == 1) {
+  println(enabledLights[0]);
+  if (enabledLights[0] == 1) {
     backgroundR.loveBG();
     if (parts.size() < array_size) {
       parts.add(new Particle(random(width), random(height), rcolor(),  img_heart));
     }
   }
-  if (visual_pos == 2) {
+  if (enabledLights[1] == 1) {
     backgroundR.fearBG();
     if (parts.size() < array_size) {
       parts.add(new Particle(random(width), random(height), rcolor(),  img_skulls));
         }
   }
-  if (visual_pos == 3) {
+  if (enabledLights[2] == 1) {
     backgroundR.angerBG();
     if (parts.size() < array_size) {
       parts.add(new Particle(random(width), random(height), rcolor(), img_circle));
     }
   }
-  if (visual_pos == 4) {
+  if (enabledLights[3] == 1) {
     backgroundR.joyBG();
     if (parts.size() < array_size) {
       parts.add(new Particle(random(width), random(height), rcolor(), img_circle));
     }
   }
-  if (visual_pos == 5) {
+  if (enabledLights[4] == 1) {
     backgroundR.sadnessBG();
     if (parts.size() < array_size) {
       parts.add(new Particle(random(width), random(height), rcolor(), img_circle));
     }
   }
-  if (visual_pos == 6) {
+  if (enabledLights[5] == 1) {
     backgroundR.peaceBG();
     if (parts.size() < array_size) {
       parts.add(new Particle(random(width), random(height), rcolor(), img_circle));

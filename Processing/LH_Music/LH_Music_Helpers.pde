@@ -1,10 +1,10 @@
 // emotion positions {xStart, xEnd, yStart, yEnd}
-float[] emo1 = {0.9,1,0,1};
-float[] emo2 = {0,0.1,0,1};
-float[] emo3 = {10,100,120,170};
-float[] emo4 = {10,100,180,230};
-float[] emo5 = {10,100,180,230};
-float[] emo6 = {10,100,180,230};
+float[] emo1 = {0.00,0.33,0.00,0.50};
+float[] emo2 = {0.33,0.66,0.00,0.50};
+float[] emo3 = {0.66,1.00,0.00,0.50};
+float[] emo4 = {0.00,0.33,0.50,1.00};
+float[] emo5 = {0.33,0.66,0.50,1.00};
+float[] emo6 = {0.66,1.00,0.50,1.00};
 
 
 int checkBounding(float posX, float posY)

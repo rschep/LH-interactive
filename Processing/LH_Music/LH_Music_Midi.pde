@@ -34,7 +34,7 @@ void volumeUp(int emotion) {
 
 void volumeDown() {
   volumeDownCount++;
-  if(volumeDownCount >=2) {
+  if(volumeDownCount >=1) {
     volumeDownCount = 0;
     if(enabledLights[0] == 0)
     {
