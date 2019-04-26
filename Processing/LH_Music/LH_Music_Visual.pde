@@ -19,6 +19,10 @@ color rcolor() {
 PImage img_heart;
 PImage img_skulls;
 PImage img_circle;
+PImage img_circle_small;
+PImage img_peace;
+PImage img_anger;
+PImage img_joy;
 
 int[]   enabledLights       = {0,0,0,0,0,0}; 
 int[]   tempLights          = {0,0,0,0,0,0}; 
