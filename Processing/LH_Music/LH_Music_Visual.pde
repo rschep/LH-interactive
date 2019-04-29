@@ -258,6 +258,7 @@ class Background {
 
 // DMX 
 void EnableLight() {
+  println(enabledLights);
   TSPSPerson[] people = tspsReceiver.getPeopleArray();
   for (int y=0; y<enabledLights.length; y++) {
     for (int i=0; i<people.length; i++) {
@@ -276,12 +277,12 @@ void EnableLight() {
     if(tempLights[y] == 1 && enabledLights[y] == 0)
     {
       enabledLights[y] = 1;
-      outputDMX.sendController(0, y+1, 126);  
+      outputDMX.sendController(0, y, 126);  
     }
     else if(tempLights[y] == 0 && enabledLights[y] == 1)
     {
       enabledLights[y] = 0;
-      outputDMX.sendController(0, y+1, 0);
+      outputDMX.sendController(0, y, 0);
     }
     tempLights[y] = 0;
   }

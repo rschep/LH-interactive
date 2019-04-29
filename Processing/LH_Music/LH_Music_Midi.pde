@@ -45,7 +45,7 @@ void volumeDown() {
       outputVolume.sendController(0,60+r,volumeEmotion[r]);
       }
     }
-    else if(enabledLights[1] == 0)
+    if(enabledLights[1] == 0)
     {
       r = int(random(10, 19));
       if(volumeEmotion[r]>0)
@@ -54,7 +54,7 @@ void volumeDown() {
       outputVolume.sendController(0,60+r,volumeEmotion[r]);
       }
     }
-    else if(enabledLights[2] == 0)
+    if(enabledLights[2] == 0)
     {
       r = int(random(20, 29));
       if(volumeEmotion[r]>0)
@@ -63,7 +63,7 @@ void volumeDown() {
       outputVolume.sendController(0,60+r,volumeEmotion[r]);
       }
     }
-    else if(enabledLights[3] == 0)
+    if(enabledLights[3] == 0)
     {
       r = int(random(30, 39));
       if(volumeEmotion[r]>0)
@@ -72,7 +72,7 @@ void volumeDown() {
       outputVolume.sendController(0,60+r,volumeEmotion[r]);
       }
     }
-    else if(enabledLights[4] == 0)
+    if(enabledLights[4] == 0)
     {
       r = int(random(40, 49));
       if(volumeEmotion[r]>0)
@@ -81,7 +81,7 @@ void volumeDown() {
       outputVolume.sendController(0,60+r,volumeEmotion[r]);
       }
     }
-    else if(enabledLights[5] == 0)
+    if(enabledLights[5] == 0)
     {
       r = int(random(50, 59));
       if(volumeEmotion[r]>0)

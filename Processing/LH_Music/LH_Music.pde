@@ -54,11 +54,14 @@ void draw(){
       posY = people[i].centroid.y;    // get y position of person
       println("x: " + posX + " y: " + posY);
       // music 
-      if (age % 5 == 0) {   
+      if (age % 1 == 0) {   
          pos = checkBounding(posX, posY);
          if(pos > 0) {
            pos--;
            volumeUp(pos);
+         if (parts.size() >= 50) {
+           parts.remove(0);
+         }
       }
     }
   }
